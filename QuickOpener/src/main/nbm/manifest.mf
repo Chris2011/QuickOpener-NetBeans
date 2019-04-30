@@ -1,4 +1,5 @@
 Manifest-Version: 1.0
+OpenIDE-Module-Install: me/dsnet/quickopener/Installer.class
 OpenIDE-Module-Layer: me/dsnet/quickopener/layer.xml
 OpenIDE-Module-Localizing-Bundle: me/dsnet/quickopener/Bundle.properties
 
