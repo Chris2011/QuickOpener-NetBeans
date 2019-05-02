@@ -127,7 +127,7 @@ public class DialogCustomFileSystem extends javax.swing.JDialog {
         browseButton = new javax.swing.JButton();
 
         setTitle(org.openide.util.NbBundle.getMessage(DialogCustomFileSystem.class, "DialogCustomFileSystem.title")); // NOI18N
-        setIconImage(ImageUtilities.loadImage("me/dsnet/quickopener/icons/folder-documents-icon-cu.png"));
+        setIconImage(ImageUtilities.mergeImages(ImageUtilities.loadImage("me/dsnet/quickopener/icons/folder16.png",false), ImageUtilities.loadImage("me/dsnet/quickopener/icons/run16.png",false), 7, 7));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 closeDialog(evt);
@@ -159,7 +159,7 @@ public class DialogCustomFileSystem extends javax.swing.JDialog {
         org.openide.awt.Mnemonics.setLocalizedText(jLabel1, org.openide.util.NbBundle.getMessage(DialogCustomFileSystem.class, "DialogCustomFileSystem.jLabel1.text")); // NOI18N
         jLabel1.setRequestFocusEnabled(false);
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/me/dsnet/quickopener/icons/folder-documents-icon48-cu.png"))); // NOI18N
+        jLabel2.setIcon(new ImageIcon(ImageUtilities.mergeImages(ImageUtilities.loadImage("me/dsnet/quickopener/icons/folder48.png",false), ImageUtilities.loadImage("me/dsnet/quickopener/icons/run48.png",false), 7, 7)));
         org.openide.awt.Mnemonics.setLocalizedText(jLabel2, org.openide.util.NbBundle.getMessage(DialogCustomFileSystem.class, "DialogCustomFileSystem.jLabel2.text")); // NOI18N
 
         jTable2.setAutoCreateRowSorter(true);
@@ -224,7 +224,7 @@ public class DialogCustomFileSystem extends javax.swing.JDialog {
             }
         });
 
-        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/me/dsnet/quickopener/icons/help.png"))); // NOI18N
+        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/me/dsnet/quickopener/icons/help16.png"))); // NOI18N
         org.openide.awt.Mnemonics.setLocalizedText(jLabel10, org.openide.util.NbBundle.getMessage(DialogCustomFileSystem.class, "DialogCustomFileSystem.jLabel10.text")); // NOI18N
         jLabel10.setToolTipText(org.openide.util.NbBundle.getMessage(DialogCustomFileSystem.class, "DialogCustomFileSystem.jLabel10.toolTipText")); // NOI18N
 

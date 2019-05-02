@@ -123,7 +123,7 @@ public class DialogCustomTerminal extends javax.swing.JDialog {
         jLabel10 = new javax.swing.JLabel();
 
         setTitle(org.openide.util.NbBundle.getMessage(DialogCustomTerminal.class, "DialogCustomTerminal.title")); // NOI18N
-        setIconImage(ImageUtilities.loadImage("me/dsnet/quickopener/icons/terminal-cu.png"));
+        setIconImage(ImageUtilities.mergeImages(ImageUtilities.loadImage("me/dsnet/quickopener/icons/terminal16.png",false), ImageUtilities.loadImage("me/dsnet/quickopener/icons/run16.png",false), 7, 7));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 closeDialog(evt);
@@ -155,7 +155,7 @@ public class DialogCustomTerminal extends javax.swing.JDialog {
         org.openide.awt.Mnemonics.setLocalizedText(jLabel1, org.openide.util.NbBundle.getMessage(DialogCustomTerminal.class, "DialogCustomTerminal.jLabel1.text")); // NOI18N
         jLabel1.setRequestFocusEnabled(false);
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/me/dsnet/quickopener/icons/terminal48-cu2.png"))); // NOI18N
+        jLabel2.setIcon(new ImageIcon(ImageUtilities.mergeImages(ImageUtilities.loadImage("me/dsnet/quickopener/icons/terminal48.png",false), ImageUtilities.loadImage("me/dsnet/quickopener/icons/run48.png",false), 7, 7)));
         org.openide.awt.Mnemonics.setLocalizedText(jLabel2, org.openide.util.NbBundle.getMessage(DialogCustomTerminal.class, "DialogCustomTerminal.jLabel2.text")); // NOI18N
 
         jTable2.setAutoCreateRowSorter(true);
@@ -220,7 +220,7 @@ public class DialogCustomTerminal extends javax.swing.JDialog {
             }
         });
 
-        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/me/dsnet/quickopener/icons/help.png"))); // NOI18N
+        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/me/dsnet/quickopener/icons/help16.png"))); // NOI18N
         org.openide.awt.Mnemonics.setLocalizedText(jLabel10, org.openide.util.NbBundle.getMessage(DialogCustomTerminal.class, "DialogCustomTerminal.jLabel10.text")); // NOI18N
         jLabel10.setToolTipText("<html><a href=\"#\">Click on any path to set the input box.</a><br/>\n<br/>\nYou can customize the your preferred places in:<br/>\n<a href=\"#\">Tools > Options > Miscellaneous > QuickOpener</a>\n</html>"); // NOI18N
 

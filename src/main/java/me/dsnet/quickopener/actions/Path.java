@@ -33,7 +33,7 @@ import org.openide.util.NbBundle.Messages;
 public final class Path extends AbstractFileContextAwareAction {
 
     @StaticResource
-    private static final String icon = "me/dsnet/quickopener/icons/path.png";
+    private static final String icon = "me/dsnet/quickopener/icons/path16.png";
 
     @Override
     public String getName() {

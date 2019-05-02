@@ -33,7 +33,7 @@ import org.openide.util.NbBundle.Messages;
 public final class FileSystem extends AbstractFileContextAwareAction {
 
     @StaticResource
-    private static final String icon = "me/dsnet/quickopener/icons/folder-documents-icon.png";
+    private static final String ICON = "me/dsnet/quickopener/icons/folder16.png";
 
     @Override
     public String getName() {
@@ -42,7 +42,7 @@ public final class FileSystem extends AbstractFileContextAwareAction {
 
     @Override
     protected String iconResource() {
-        return icon;
+        return ICON;
     }
 
     @Override

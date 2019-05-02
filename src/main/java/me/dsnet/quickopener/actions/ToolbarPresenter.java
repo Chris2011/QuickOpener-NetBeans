@@ -27,10 +27,10 @@ public final class ToolbarPresenter implements Presenter.Toolbar {
     @Override
     public Component getToolbarPresenter() {
         
-        final ImageIcon run16 = ImageUtilities.loadImageIcon("me/dsnet/quickopener/icons/run.png", false); 
-        final ImageIcon run32 = ImageUtilities.loadImageIcon("me/dsnet/quickopener/icons/run24.png", false);
-        final ImageIcon folder = ImageUtilities.loadImageIcon("me/dsnet/quickopener/icons/folder-documents-icon-cu.png",false);
-        final ImageIcon terminal = ImageUtilities.loadImageIcon("me/dsnet/quickopener/icons/terminal-cu.png",false);
+        final ImageIcon run16 = ImageUtilities.loadImageIcon("me/dsnet/quickopener/icons/run16.png", false); 
+        final ImageIcon run24 = ImageUtilities.loadImageIcon("me/dsnet/quickopener/icons/run24.png", false);
+        final ImageIcon folder = new ImageIcon(ImageUtilities.mergeImages(ImageUtilities.loadImage("me/dsnet/quickopener/icons/folder16.png",false), ImageUtilities.loadImage("me/dsnet/quickopener/icons/run16.png",false), 7, 7));
+        final ImageIcon terminal = new ImageIcon(ImageUtilities.mergeImages(ImageUtilities.loadImage("me/dsnet/quickopener/icons/terminal16.png",false), ImageUtilities.loadImage("me/dsnet/quickopener/icons/run16.png",false), 7, 7));
         
         CustomCommandPopupAction cAction=new CustomCommandPopupAction("Launch custom command...",run16);
         CustomTerminalPopupAction tAction=new CustomTerminalPopupAction("Open shell in...",terminal);
@@ -60,7 +60,7 @@ public final class ToolbarPresenter implements Presenter.Toolbar {
                 if(useSmallIcon){ 
                     dropDownButton.setIcon(run16);
                 }else { 
-                    dropDownButton.setIcon(run32);
+                    dropDownButton.setIcon(run24);
                 } 
             } 
         }); 

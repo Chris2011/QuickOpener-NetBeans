@@ -34,7 +34,7 @@ import org.openide.util.Utilities;
 public final class Terminal extends AbstractFileContextAwareAction {
 
     @StaticResource
-    private static final String icon = "me/dsnet/quickopener/icons/terminal.png";
+    private static final String ICON = "me/dsnet/quickopener/icons/terminal16.png";
 
     @Override
     public String getName() {
@@ -43,7 +43,7 @@ public final class Terminal extends AbstractFileContextAwareAction {
 
     @Override
     protected String iconResource() {
-        return icon;
+        return ICON;
     }
 
     @Override

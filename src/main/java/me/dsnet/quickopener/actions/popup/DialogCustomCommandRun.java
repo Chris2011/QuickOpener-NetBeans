@@ -106,7 +106,7 @@ public class DialogCustomCommandRun extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle(org.openide.util.NbBundle.getMessage(DialogCustomCommandRun.class, "DialogCustomCommandRun.title")); // NOI18N
-        setIconImage(ImageUtilities.loadImage("me/dsnet/quickopener/icons/run.png"));
+        setIconImage(ImageUtilities.loadImage("me/dsnet/quickopener/icons/run16.png"));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 closeDialog(evt);
