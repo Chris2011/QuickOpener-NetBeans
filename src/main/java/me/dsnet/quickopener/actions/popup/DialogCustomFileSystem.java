@@ -159,7 +159,7 @@ public class DialogCustomFileSystem extends javax.swing.JDialog {
         org.openide.awt.Mnemonics.setLocalizedText(jLabel1, org.openide.util.NbBundle.getMessage(DialogCustomFileSystem.class, "DialogCustomFileSystem.jLabel1.text")); // NOI18N
         jLabel1.setRequestFocusEnabled(false);
 
-        jLabel2.setIcon(new ImageIcon(ImageUtilities.mergeImages(ImageUtilities.loadImage("me/dsnet/quickopener/icons/folder48.png",false), ImageUtilities.loadImage("me/dsnet/quickopener/icons/run48.png",false), 7, 7)));
+        jLabel2.setIcon(new ImageIcon(ImageUtilities.mergeImages(ImageUtilities.loadImage("me/dsnet/quickopener/icons/folder48.png",false), ImageUtilities.loadImage("me/dsnet/quickopener/icons/run24.png",false), 28, 28)));
         org.openide.awt.Mnemonics.setLocalizedText(jLabel2, org.openide.util.NbBundle.getMessage(DialogCustomFileSystem.class, "DialogCustomFileSystem.jLabel2.text")); // NOI18N
 
         jTable2.setAutoCreateRowSorter(true);
