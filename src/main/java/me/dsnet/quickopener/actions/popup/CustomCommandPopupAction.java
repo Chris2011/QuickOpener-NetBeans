@@ -7,6 +7,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.AbstractAction;
 import javax.swing.Icon;
+import org.openide.awt.ActionID;
+import org.openide.awt.ActionReference;
+import org.openide.awt.ActionRegistration;
 import org.openide.util.NbBundle;
 
 /**
@@ -14,6 +17,9 @@ import org.openide.util.NbBundle;
  * @author SessonaD
  */
 @NbBundle.Messages("CTL_CustomCommandPopupAction=Launch custom command...")
+@ActionID(id = "me.dsnet.quickopener.actions.popup.CustomCommandPopupAction", category = "Tools")
+@ActionRegistration(displayName = "#CTL_CustomCommandPopupAction", iconInMenu = true)
+@ActionReference(path = "Shortcuts", name = "O-5")
 public class CustomCommandPopupAction extends AbstractAction implements ActionListener {
 
     public CustomCommandPopupAction() {

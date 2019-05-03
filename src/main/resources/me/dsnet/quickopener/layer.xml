@@ -88,6 +88,10 @@
             
     <folder name="Toolbars">
         <folder name="QuickOpener">
+            <file name="me-dsnet-quickopener-actions-Terminal.shadow">
+                <attr name="originalFile" stringvalue="Actions/Tools/me-dsnet-quickopener-actions-Terminal.instance"/>
+                <attr intvalue="500" name="position"/>
+            </file>
             <file name="me-dsnet-quickopener-actions-FileSystem.shadow">
                 <attr name="originalFile" stringvalue="Actions/Tools/me-dsnet-quickopener-actions-FileSystem.instance"/>
                 <attr intvalue="600" name="position"/>
@@ -96,22 +100,21 @@
                 <attr name="originalFile" stringvalue="Actions/Tools/me-dsnet-quickopener-actions-Path.instance"/>
                 <attr intvalue="700" name="position"/>
             </file>
-            <file name="me-dsnet-quickopener-actions-Terminal.shadow">
-                <attr name="originalFile" stringvalue="Actions/Tools/me-dsnet-quickopener-actions-Terminal.instance"/>
-                <attr intvalue="500" name="position"/>
+            <file name="me-dsnet-quickopener-actions-popup-DefaultAppPopupAction.shadow">
+                <attr name="originalFile" stringvalue="Actions/File/me-dsnet-quickopener-actions-popup-DefaultAppPopupAction.instance"/>
+                <attr intvalue="800" name="position"/>
             </file>
             <file name="me-dsnet-quickopener-actions-ToolbarPresenter.shadow">
                 <attr name="originalFile" stringvalue="Actions/Tools/me-dsnet-quickopener-actions-ToolbarPresenter.instance"/>
-                <attr intvalue="800" name="position"/>
+                <attr intvalue="900" name="position"/>
             </file>
         </folder>
     </folder>
     <folder name="Shortcuts">
+        <file name="O-1.shadow"><attr name="originalFile" stringvalue="Actions/Tools/me-dsnet-quickopener-actions-Terminal.instance"/> </file>
         <file name="O-2.shadow"><attr name="originalFile" stringvalue="Actions/Tools/me-dsnet-quickopener-actions-FileSystem.instance"/></file>
         <file name="O-3.shadow"><attr name="originalFile" stringvalue="Actions/Tools/me-dsnet-quickopener-actions-Path.instance"/></file>
-        <file name="O-1.shadow"><attr name="originalFile" stringvalue="Actions/Tools/me-dsnet-quickopener-actions-Terminal.instance"/> </file>       
-        <file name="O-4.shadow"><attr name="originalFile" stringvalue="Actions/Tools/me-dsnet-quickopener-actions-popup-CustomCommandPopupAction.instance"/></file>
-        <file name="O-5.shadow"><attr name="originalFile" stringvalue="Actions/Tools/me-dsnet-quickopener-actions-popup-CustomFileSystemPopupAction.instance"/></file>
-        <file name="O-6.shadow"><attr name="originalFile" stringvalue="Actions/Tools/me-dsnet-quickopener-actions-popup-CustomTerminalPopupAction.instance"/></file> 
+        <file name="O-4.shadow"><attr name="originalFile" stringvalue="Actions/File/me-dsnet-quickopener-actions-popup-DefaultAppPopupAction.instance"/></file>
+        <file name="O-7.shadow"><attr name="originalFile" stringvalue="Actions/Tools/me-dsnet-quickopener-actions-popup-CustomTerminalPopupAction.instance"/></file> 
     </folder>
 </filesystem>

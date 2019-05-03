@@ -8,6 +8,9 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import javax.swing.AbstractAction;
 import javax.swing.Icon;
+import org.openide.awt.ActionID;
+import org.openide.awt.ActionReference;
+import org.openide.awt.ActionRegistration;
 import org.openide.util.NbBundle;
 
 /**
@@ -20,6 +23,9 @@ import org.openide.util.NbBundle;
 //    @ActionReference(path = "Shortcuts", name = "O-5")
 //})
 @NbBundle.Messages("CTL_CustomFileSystemPopupAction=Open filesystem in...")
+@ActionID(id = "me.dsnet.quickopener.actions.popup.CustomFileSystemPopupAction", category = "Tools")
+@ActionRegistration(displayName = "#CTL_CustomFileSystemPopupAction", iconInMenu = true)
+@ActionReference(path = "Shortcuts", name = "O-6")
 public class CustomFileSystemPopupAction extends AbstractAction implements ActionListener{
     
     public CustomFileSystemPopupAction() {

@@ -21,6 +21,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
+import javax.swing.AbstractAction;
+import javax.swing.ImageIcon;
 import org.openide.awt.ActionID;
 import org.openide.awt.ActionRegistration;
 import org.openide.util.NbBundle.Messages;
@@ -30,27 +32,28 @@ import org.openide.filesystems.FileObject;
 import org.openide.loaders.DataObject;
 import org.openide.loaders.DataShadow;
 import org.openide.util.Exceptions;
+import org.openide.util.ImageUtilities;
 import org.openide.windows.Mode;
 import org.openide.windows.TopComponent;
 import org.openide.windows.WindowManager;
 
-//@ParametersAreNonnullByDefault
 @ActionID(
-        category = "File",
-        id = "me.dsnet.quickopener.actions.popup.DefaultAppPopupAction"
+    category = "File",
+    id = "me.dsnet.quickopener.actions.popup.DefaultAppPopupAction"
 )
 @ActionRegistration(
-        displayName = "#CTL_OpenInDefaultAppAction"
+    displayName = "#CTL_OpenInDefaultAppAction"
 )
 @ActionReferences({
     @ActionReference(path = "Menu/File", position = 955),
     @ActionReference(path = "Loaders/Languages/Actions", position = 1000),
-    @ActionReference(path = "Shortcuts", name = "O-7")
+    @ActionReference(path = "Shortcuts", name = "O-4")
 })
 @Messages("CTL_OpenInDefaultAppAction=Open in Default App")
-public class DefaultAppPopupAction implements ActionListener {
+public class DefaultAppPopupAction extends AbstractAction implements ActionListener {
 
     public DefaultAppPopupAction() {
+        super(Bundle.CTL_OpenInDefaultAppAction(), new ImageIcon(ImageUtilities.loadImage("me/dsnet/quickopener/icons/default16.png",false)));
     }
 
     @Override
