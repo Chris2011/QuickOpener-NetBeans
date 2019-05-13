@@ -36,7 +36,7 @@ _Always enabled:_
 * **Open a shell on any location** (favorites, customizable on preferences)
 ![icon](qoscreenshots/shot11.png)&nbsp; 
 
-<h2>Updates</h2>
+<h2>Changelog</h2>
 
 <h3>1.3.0</h3>
 <ul>
