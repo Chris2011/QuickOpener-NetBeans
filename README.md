@@ -25,7 +25,7 @@ _When the selection has a valid file:_
 ![icon](qoscreenshots/shot8.png)&nbsp;
 * **Copy to the clipboard** the path of the file selected.
 ![icon](qoscreenshots/shot9.png)&nbsp;
-* **Open in default OS app** File will be opened in default app, not in NetBeans.
+* **Open in default OS app** File opens in default app from the OS, not in NetBeans.
 ![icon](qoscreenshots/shot12.png)&nbsp;
 
 _Always enabled:_
