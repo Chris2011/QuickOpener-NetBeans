@@ -21,18 +21,21 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
-import javax.swing.AbstractAction;
-import javax.swing.ImageIcon;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import me.dsnet.quickopener.PathFinder;
+import me.dsnet.quickopener.actions.AbstractFileContextAwareAction;
+import org.netbeans.api.annotations.common.StaticResource;
 import org.openide.awt.ActionID;
 import org.openide.awt.ActionRegistration;
 import org.openide.util.NbBundle.Messages;
 import org.openide.awt.ActionReference;
 import org.openide.awt.ActionReferences;
+import org.openide.awt.NotificationDisplayer;
 import org.openide.filesystems.FileObject;
 import org.openide.loaders.DataObject;
 import org.openide.loaders.DataShadow;
-import org.openide.util.Exceptions;
-import org.openide.util.ImageUtilities;
+import org.openide.nodes.Node;
 import org.openide.windows.Mode;
 import org.openide.windows.TopComponent;
 import org.openide.windows.WindowManager;
@@ -42,7 +45,7 @@ import org.openide.windows.WindowManager;
     id = "me.dsnet.quickopener.actions.popup.DefaultAppPopupAction"
 )
 @ActionRegistration(
-    displayName = "#CTL_OpenInDefaultAppAction"
+    displayName = "#CTL_OpenInDefaultAppAction", lazy = false
 )
 @ActionReferences({
     @ActionReference(path = "Menu/File", position = 955),
@@ -50,26 +53,56 @@ import org.openide.windows.WindowManager;
     @ActionReference(path = "Shortcuts", name = "O-4")
 })
 @Messages("CTL_OpenInDefaultAppAction=Open in Default App")
-public class DefaultAppPopupAction extends AbstractAction implements ActionListener {
+public class DefaultAppPopupAction extends AbstractFileContextAwareAction implements ActionListener {
+    private static final Logger LOG = Logger.getLogger(DefaultAppPopupAction.class.getName());
 
-    public DefaultAppPopupAction() {
-        super(Bundle.CTL_OpenInDefaultAppAction(), new ImageIcon(ImageUtilities.loadImage("me/dsnet/quickopener/icons/default16.png",false)));
-    }
+    @StaticResource
+    private static final String ICON = "me/dsnet/quickopener/icons/default16.png";
 
     @Override
     public void actionPerformed(ActionEvent ev) {
+        openInDefaultApp();
+    }
+
+    @Override
+    public String getName() {
+        return Bundle.CTL_OpenInDefaultAppAction();
+    }
+
+    @Override
+    protected boolean enable(Node[] activatedNodes) {
+        File file = null;
+
+        if (null != activatedNodes && activatedNodes.length == 1) {
+            file = PathFinder.getActiveFile(activatedNodes[0].getLookup().lookup(DataObject.class), false);
+        }
+
+        return null != file && file.isFile();
+    }
+
+    @Override
+    protected String iconResource() {
+        return ICON;
+    }
+
+    @Override
+    protected void performAction(Node[] activatedNodes) {
+        openInDefaultApp();
+    }
+
+    private boolean openInDefaultApp() {
         final Mode editorMode = WindowManager.getDefault().findMode("editor");
 
         if (editorMode == null) {
-            return;
+            return true;
         }
 
         TopComponent activeTC = TopComponent.getRegistry().getActivated();
         DataObject dataObject = null;
-        
+
         if (activeTC != null) {
             dataObject = activeTC.getLookup().lookup(DataObject.class);
-            
+
             if (dataObject instanceof DataShadow) {
                 dataObject = ((DataShadow) dataObject).getOriginal();
             }
@@ -78,17 +111,21 @@ public class DefaultAppPopupAction extends AbstractAction implements ActionListe
         try {
             if (dataObject != null) {
                 final FileObject primaryFile = dataObject.getPrimaryFile();
-                
+
                 if (primaryFile != null) {
                     final String fileName = primaryFile.getPath();
-                    
+
                     if (!dataObject.getPrimaryFile().isFolder() && fileName != null) {
                         Desktop.getDesktop().open(new File(fileName));
                     }
                 }
             }
         } catch (IOException ex) {
-            Exceptions.printStackTrace(ex);
+            LOG.log(Level.WARNING, ex.getMessage());
+            
+            NotificationDisplayer.getDefault().notify("Error while opening in default app.", NotificationDisplayer.Priority.HIGH.getIcon(), ex.getLocalizedMessage(), null);
         }
+
+        return false;
     }
 }
