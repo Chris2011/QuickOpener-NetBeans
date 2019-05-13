@@ -20,11 +20,13 @@ This plugins brings to your NetBeans six action, three of them always available 
 _When the selection has a valid file:_
 
 * **Open the default OS shell** on the location of the file (or its folder) selected.
-![icon](qoscreenshots/shot7.PNG)&nbsp; 
+![icon](qoscreenshots/shot7.PNG)&nbsp;
 * **Open the file system browser** on the location of the file (or its folder) selected.
-![icon](qoscreenshots/shot8.png)&nbsp; 
+![icon](qoscreenshots/shot8.png)&nbsp;
 * **Copy to the clipboard** the path of the file selected.
-![icon](qoscreenshots/shot9.PNG)&nbsp; 
+![icon](qoscreenshots/shot9.PNG)&nbsp;
+* **Open in default OS app** File will be opened in default app, not in NetBeans.
+![icon](qoscreenshots/shot12.PNG)&nbsp;
 
 _Always enabled:_
 
