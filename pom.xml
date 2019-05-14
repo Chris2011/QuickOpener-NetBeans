@@ -181,8 +181,13 @@
     &lt;/li&gt;&lt;li&gt;&lt;strong&gt;Copy to the clipboard&lt;/strong&gt; the path of the file selected.
     &lt;/li&gt;&lt;/ul&gt;&lt;p&gt;&lt;em&gt;Always enabled:&lt;/em&gt;&lt;/p&gt;&lt;ul&gt;&lt;li&gt;&lt;strong&gt;Launch a shell command&lt;/strong&gt; (with parameters, customizable on preferences)&lt;/li&gt;&lt;li&gt;&lt;strong&gt;FileSystem browser on any location&lt;/strong&gt; (favorites, customizable on preferences)&lt;/li&gt;&lt;li&gt;&lt;strong&gt;Open a shell on any location&lt;/strong&gt; (favorites, customizable on preferences)&lt;/li&gt;&lt;/ul&gt;
 
+&lt;h2&gt;Changelog&lt;/h2&gt;
 
-&lt;h2&gt;Updates&lt;/h2&gt;
+&lt;h3&gt;1.3.0&lt;/h3&gt;
+&lt;ul&gt;
+    &lt;li&gt;[Feature]: Open file in default operating system app&lt;/li&gt;
+    &lt;li&gt;[&lt;a href="https://github.com/dzsessona/QuickOpener-NetBeans/issues/88"&gt;Feature 88&lt;/a&gt;]: Changed icons&lt;/li&gt;
+&lt;/ul&gt;
 
 &lt;h3&gt;1.2.0:&lt;/h3&gt;
 &lt;ul&gt;
