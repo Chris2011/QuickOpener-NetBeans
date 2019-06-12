@@ -57,7 +57,7 @@ public class DefaultAppPopupAction extends AbstractFileContextAwareAction implem
     private static final Logger LOG = Logger.getLogger(DefaultAppPopupAction.class.getName());
 
     @StaticResource
-    private static final String ICON = "me/dsnet/quickopener/icons/default16.png";
+    private static final String ICON = "me/dsnet/quickopener/icons/default.png";
 
     @Override
     public void actionPerformed(ActionEvent ev) {

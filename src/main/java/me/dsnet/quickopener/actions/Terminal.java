@@ -1,6 +1,7 @@
 package me.dsnet.quickopener.actions;
 
 import com.sessonad.oscommands.commands.Commands;
+import java.awt.event.ActionListener;
 import me.dsnet.quickopener.PathFinder;
 import me.dsnet.quickopener.QuickMessages;
 import me.dsnet.quickopener.prefs.PrefsUtil;
@@ -31,10 +32,10 @@ import org.openide.util.Utilities;
         displayName = "#CTL_Terminal"
 )
 @Messages("CTL_Terminal=Open in Terminal")
-public final class Terminal extends AbstractFileContextAwareAction {
+public final class Terminal extends AbstractFileContextAwareAction implements ActionListener {
 
     @StaticResource
-    private static final String ICON = "me/dsnet/quickopener/icons/terminal16.png";
+    private static final String ICON = "me/dsnet/quickopener/icons/terminal.png";
 
     @Override
     public String getName() {

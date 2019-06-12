@@ -1,6 +1,7 @@
 package me.dsnet.quickopener.actions;
 
 import com.sessonad.oscommands.commands.Commands;
+import java.awt.event.ActionListener;
 import me.dsnet.quickopener.QuickMessages;
 import java.io.File;
 import me.dsnet.quickopener.PathFinder;
@@ -30,10 +31,10 @@ import org.openide.util.NbBundle.Messages;
         displayName = "#CTL_FileSystem"
 )
 @Messages("CTL_FileSystem=Open in File Manager")
-public final class FileSystem extends AbstractFileContextAwareAction {
+public final class FileSystem extends AbstractFileContextAwareAction implements ActionListener {
 
     @StaticResource
-    private static final String ICON = "me/dsnet/quickopener/icons/folder16.png";
+    private static final String ICON = "me/dsnet/quickopener/icons/folder.png";
 
     @Override
     public String getName() {

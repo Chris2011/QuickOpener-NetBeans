@@ -4,6 +4,7 @@ import java.awt.HeadlessException;
 import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
+import java.awt.event.ActionListener;
 import java.io.File;
 import me.dsnet.quickopener.PathFinder;
 import me.dsnet.quickopener.QuickMessages;
@@ -30,10 +31,10 @@ import org.openide.util.NbBundle.Messages;
         displayName = "#CTL_Path"
 )
 @Messages("CTL_Path=Copy Path")
-public final class Path extends AbstractFileContextAwareAction {
+public final class Path extends AbstractFileContextAwareAction implements ActionListener{
 
     @StaticResource
-    private static final String icon = "me/dsnet/quickopener/icons/path16.png";
+    private static final String ICON = "me/dsnet/quickopener/icons/path.png";
 
     @Override
     public String getName() {
@@ -42,7 +43,7 @@ public final class Path extends AbstractFileContextAwareAction {
 
     @Override
     protected String iconResource() {
-        return icon;
+        return ICON;
     }
 
     @Override
