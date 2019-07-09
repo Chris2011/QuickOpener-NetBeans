@@ -5,6 +5,9 @@
 ### Features
 1 - [#3](https://github.com/Chris2011/QuickOpener-NetBeans/issues/3): Add "Copy Path" option to files.
 
+### General
+1 - Build for Apache NetBeans >= 9.0.
+
 
 ## Updates in 1.3.1
 
