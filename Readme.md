@@ -1,10 +1,11 @@
 # QuickOpener-NetBeans
-
-[![license](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0) ![Version](https://img.shields.io/badge/version-1.3.1-green.svg) ![Contributors](https://img.shields.io/github/contributors/chris2011/QuickOpener-NetBeans.svg) ![Downloads](https://img.shields.io/github/downloads/chris2011/QuickOpener-NetBeans/total.svg)
+![License](https://img.shields.io/github/license/Chris2011/QuickOpener-NetBeans.svg)
+![Release](https://img.shields.io/github/release/Chris2011/QuickOpener-NetBeans.svg)
+![Contributors](https://img.shields.io/github/contributors/chris2011/QuickOpener-NetBeans.svg)
+![Downloads](https://img.shields.io/github/downloads/chris2011/QuickOpener-NetBeans/total.svg)
 
 
 ## Description
-
 Sometimes while programming in NetBeans you want to explore a particular file that you are editing on the file system browser, or maybe launch a command in a terminal to do something with it.
 
 ![Plugin toolbar](qoscreenshots/shot2.png)
@@ -32,12 +33,10 @@ _Always enabled:_
 
 
 ## Changelog
-
 See [Changelog](./Changelog.md) for all information
 
 
 ## NetBeans Compatibility
-
 No official support anymore for NetBeans < 9.0  
 Version >= 1.4.0 is compatible to Apache NetBeans >= 9.0  
 [For NetBeans < NB8.1]: http://plugins.netbeans.org/plugin/43217/quickopener  
@@ -45,5 +44,4 @@ Version >= 1.4.0 is compatible to Apache NetBeans >= 9.0
 
 
 ## Wiki
-
 See the [Wiki]: https://github.com/dzsessona/QuickOpener-NetBeans/wiki for all tutorials.
