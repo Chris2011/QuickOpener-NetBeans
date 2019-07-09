@@ -24,8 +24,11 @@ import org.openide.util.Exceptions;
 import org.openide.windows.WindowManager;
 
 public class Installer extends ModuleInstall {
-    protected static final String DEFAULT_APP_POPUP_ACTION_STRING = "me-dsnet-quickopener-actions-popup-DefaultAppPopupAction.shadow";
+    protected static final String DEFAULT_APP_POPUP_ACTION_SHADOW = "me-dsnet-quickopener-actions-popup-DefaultAppPopupAction.shadow";
     protected static final String DEFAULT_EDITOR_POPUP_ACTION_ORIG = "Actions/File/me-dsnet-quickopener-actions-popup-DefaultAppPopupAction.instance";
+
+    protected static final String COPY_PATH_ACTION_SHADOW = "me-dsnet-quickopener-actions-Path.shadow";
+    protected static final String COPY_PATH_ACTION_ORIG = "Actions/Tools/me-dsnet-quickopener-actions-Path.instance";
 
     @Override
     public void restored() {
@@ -62,15 +65,27 @@ public class Installer extends ModuleInstall {
 //            if (fileType.isFolder()) {
                 try {
                     final FileObject actionsFolder = FileUtil.createFolder(fileType, "Actions");
+
                     int actionPosition = 9999;
-                    final FileObject openInDefaultAppAction = actionsFolder.getFileObject(DEFAULT_APP_POPUP_ACTION_STRING);
+                    final FileObject openInDefaultAppAction = actionsFolder.getFileObject(DEFAULT_APP_POPUP_ACTION_SHADOW);
 
                     if (openInDefaultAppAction == null) {
-                        final FileObject action = actionsFolder.createData(DEFAULT_APP_POPUP_ACTION_STRING);
+                        final FileObject action = actionsFolder.createData(DEFAULT_APP_POPUP_ACTION_SHADOW);
 
                         action.setAttribute("originalFile", DEFAULT_EDITOR_POPUP_ACTION_ORIG);
                         action.setAttribute("position", actionPosition);
                     }
+                    
+                    final FileObject copyPathAction = actionsFolder.getFileObject(COPY_PATH_ACTION_SHADOW);
+                    actionPosition = 9989;
+                    
+                    if (copyPathAction == null) {
+                        final FileObject action = actionsFolder.createData(COPY_PATH_ACTION_SHADOW);
+
+                        action.setAttribute("originalFile", COPY_PATH_ACTION_ORIG);
+                        action.setAttribute("position", actionPosition);
+                    }
+                    
                 } catch (IOException ex) {
                     Exceptions.printStackTrace(ex);
                 }
@@ -84,10 +99,16 @@ public class Installer extends ModuleInstall {
 //            if (!fileType.isFolder()) {
                 try {
                     final FileObject actionsFolder = FileUtil.createFolder(fileType, "Actions");
-                    final FileObject openInDefaultAppAction = actionsFolder.getFileObject(DEFAULT_APP_POPUP_ACTION_STRING);
+                    final FileObject openInDefaultAppAction = actionsFolder.getFileObject(DEFAULT_APP_POPUP_ACTION_SHADOW);
 
                     if (openInDefaultAppAction != null) {
                         openInDefaultAppAction.delete();
+                    }
+                    
+                    final FileObject copyPathAction = actionsFolder.getFileObject(COPY_PATH_ACTION_SHADOW);
+
+                    if (copyPathAction != null) {
+                        copyPathAction.delete();
                     }
                 } catch (IOException ex) {
                     Exceptions.printStackTrace(ex);

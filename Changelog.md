@@ -1,9 +1,15 @@
 # Changelog
 
+## Updates in 1.4.0
+
+### Features
+1 - [#3](https://github.com/Chris2011/QuickOpener-NetBeans/issues/3): Add "Copy Path" option to files.
+
+
 ## Updates in 1.3.1
 
 ### Fixes
-1 - [#2](https://github.com/Chris2011/QuickOpener-NetBeans/issues/2): Fixed icon size
+1 - [#2](https://github.com/Chris2011/QuickOpener-NetBeans/issues/2): Fixed icon size.
 
 
 ## Updates in 1.3.0

@@ -39,7 +39,7 @@ See [Changelog](./Changelog.md) for all information
 ## NetBeans Compatibility
 
 No official support anymore for NetBeans < 9.0  
-Version >= 1.3.1 is compatible to Apache NetBeans >= 9.0  
+Version >= 1.4.0 is compatible to Apache NetBeans >= 9.0  
 [For NetBeans < NB8.1]: http://plugins.netbeans.org/plugin/43217/quickopener  
 [For NetBeans, > NB8.1]: http://plugins.netbeans.org/plugin/62668/?show=true  
 
