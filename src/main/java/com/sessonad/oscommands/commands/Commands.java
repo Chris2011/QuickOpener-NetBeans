@@ -48,6 +48,9 @@ public abstract class Commands {
             case LINUX_XFCE:
                 platform = new LinuxXfceCommands();
                 break;
+            case LINUX_ENLIGHTENMENT:
+                platform = new LinuxEnlightenmentCommands();
+                break;
             case LINUX_UNKNOWN:
                 platform = new LinuxUnknownCommands();
                 break;
