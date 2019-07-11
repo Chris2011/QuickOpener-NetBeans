@@ -34,6 +34,7 @@ public enum OperatingSystem {
     LINUX_KDE   ("konsole ","konsole --workdir ","dolphin ", "dolphin ",EnumSet.of(BROWSE_TO_DIR)),
     LINUX_XFCE  ("exo-open --launch TerminalEmulator ","exo-open --launch TerminalEmulator --working-directory ","thunar ", "thunar ",EnumSet.of(BROWSE_TO_DIR)),
     LINUX_LXDE  ("lxterminal ","lxterminal --working-directory=","pcmanfm ", "pcmanfm ",EnumSet.of(BROWSE_TO_DIR)),
+    LINUX_ENLIGHTENMENT  ("terminology ","terminology -d ","enlightenment_filemanager ", "enlightenment_filemanager ",EnumSet.of(BROWSE_TO_DIR)),
     LINUX_UNKNOWN(null,null,null, null,EnumSet.noneOf(SupportedFeatures.class)),
     UNKNOWN     (null,null,null, null,EnumSet.noneOf(SupportedFeatures.class));
     private final String fileSystemBrowserCommandForFile;
@@ -71,7 +72,7 @@ public enum OperatingSystem {
     }
     
     public boolean isLinux(){
-        return this.equals(OperatingSystem.LINUX_GNOME)|| this.equals(OperatingSystem.LINUX_KDE)|| this.equals(OperatingSystem.LINUX_LXDE)|| this.equals(OperatingSystem.LINUX_XFCE)|| this.equals(OperatingSystem.LINUX_UNKNOWN);
+        return this.equals(OperatingSystem.LINUX_GNOME)|| this.equals(OperatingSystem.LINUX_KDE)|| this.equals(OperatingSystem.LINUX_LXDE)|| this.equals(OperatingSystem.LINUX_XFCE)|| this.equals(OperatingSystem.LINUX_UNKNOWN)|| this.equals(OperatingSystem.LINUX_ENLIGHTENMENT);
     }
     
 }

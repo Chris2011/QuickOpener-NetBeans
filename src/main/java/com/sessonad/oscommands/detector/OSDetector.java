@@ -29,6 +29,8 @@ public class OSDetector {
                 return OperatingSystem.LINUX_XFCE;
             }else if (checkProcessNames("lxsession")) {
                 return OperatingSystem.LINUX_LXDE;
+            }else if (checkProcessNames("enlightenment", "enlightenment_start")) {
+                return OperatingSystem.LINUX_ENLIGHTENMENT;
             }else{
                 return OperatingSystem.LINUX_UNKNOWN;
             }
