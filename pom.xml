@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>me.dsnet</groupId>
     <artifactId>QuickOpener</artifactId>
-    <version>1.4.0</version>
+    <version>1.5.0</version>
     <packaging>nbm</packaging>
     <organization>
         <name>Diego Zambelli Sessona (diego.sessona@gmail.com)</name>
