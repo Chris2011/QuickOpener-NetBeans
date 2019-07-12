@@ -1,7 +1,8 @@
 # Changelog
 
 ## Updates in 1.5.0
-1 - [#5](https://github.com/Chris2011/QuickOpener-NetBeans/issues/5): Terminal and Filemanager for Enlightment Desktop Env. is broken (PR [#13](https://github.com/Chris2011/QuickOpener-NetBeans/pull/13) by [javatlacati](https://github.com/hupfdule))  
+### Features
+1 - [#5](https://github.com/Chris2011/QuickOpener-NetBeans/issues/5): Terminal and Filemanager for Enlightment Desktop Env. is not available (PR [#13](https://github.com/Chris2011/QuickOpener-NetBeans/pull/13) by [javatlacati](https://github.com/hupfdule))  
 
 
 ## Updates in 1.4.0
