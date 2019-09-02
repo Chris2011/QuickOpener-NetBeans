@@ -7,6 +7,7 @@ package me.dsnet.quickopener.prefs;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.prefs.BackingStoreException;
+import java.util.prefs.Preferences;
 import org.openide.util.NbPreferences;
 
 /**
@@ -14,67 +15,85 @@ import org.openide.util.NbPreferences;
  * @author SessonaD
  */
 public class PrefsUtil {
+    private static final Preferences prefs = NbPreferences.forModule(QuickOpenerPanel.class);
     
     public static void store(String key, String val){
-        NbPreferences.forModule(QuickOpenerPanel.class).put(key,val); 
+        prefs.put(key,val); 
+    }
+
+    public static void store(QuickOpenerProperty property) throws BackingStoreException {
+        String key = key(property);
+        prefs.put(key, property.getValue());
+        property.storeDetails(prefs.node(key));
     }
     
-    public static void removeSingleProperty(String key){
-        NbPreferences.forModule(QuickOpenerPanel.class).remove(key);
+    public static void remove(QuickOpenerProperty property) throws BackingStoreException {
+        remove(key(property));
     }
-    
-    public static void remove(String key) throws BackingStoreException{
-        List<QuickOpenerProperty> commands = getAllMatching("command");
-        List<QuickOpenerProperty> folders = getAllMatching("folder");
-        NbPreferences.forModule(QuickOpenerPanel.class).clear();
-        for(QuickOpenerProperty p:commands){
-            String desc="command" + p.getDescription().replaceAll(" ", "_");
-            if(! desc.equals(key))
-            store(desc,p.getValue());
-        } 
-        for(QuickOpenerProperty p:folders){
-            String desc="folder" + p.getDescription().replaceAll(" ", "_");
-            if(! desc.equals(key))
-            store(desc,p.getValue());
+
+    public static void remove(String key) throws BackingStoreException {
+        prefs.remove(key);
+        if (prefs.nodeExists(key)) {
+            prefs.node(key).removeNode();
         }
     }
     
-    public static void removeAll(String prefix) throws BackingStoreException{
-        List<QuickOpenerProperty> commands = getAllMatching("command");
-        List<QuickOpenerProperty> folders = getAllMatching("folder");
-        NbPreferences.forModule(QuickOpenerPanel.class).clear();
-        if (prefix.equals("command")) {
-            for (QuickOpenerProperty p : folders) {
-                String desc = "folder" + p.getDescription().replaceAll(" ", "_");
-                store(desc, p.getValue());
-            }
-        } else if (prefix.equals("folder")) {
-            for (QuickOpenerProperty p : commands) {
-                String desc = "command" + p.getDescription().replaceAll(" ", "_");
-                store(desc, p.getValue());
+    public static void removeAll(String prefix) throws BackingStoreException {
+        for(String key : prefs.keys()){
+            if(key.startsWith(prefix)){
+                remove(key);
             }
         }
     }
     
-    public static QuickOpenerProperty load(String prefix,String key, String defaultVal){
-        String desc =(prefix==null)?key:key.replace(prefix, "");
-        desc =desc.replaceAll("_", " ");
-        return new QuickOpenerProperty(desc,NbPreferences.forModule(QuickOpenerPanel.class).get(key, defaultVal));
+    public static QuickOpenerProperty load(String prefix, String description, String defaultVal) throws BackingStoreException {
+        if (prefix == null) {
+            prefix = "";
+        }
+        String key = key(prefix, description);
+        String value = prefs.get(key, defaultVal);
+
+        QuickOpenerProperty property;
+        switch (prefix) {
+            case "command":
+                property = new QuickOpenerCommand(description, value);
+                break;
+            default:
+                property = new QuickOpenerProperty(description, value);
+                break;
+        }
+
+        if (prefs.nodeExists(key)) {
+            property.loadDetails(prefs.node(key));
+        }
+
+        return property;
     }
-    
+
     public static List<QuickOpenerProperty> getAllMatching(String prefix) throws BackingStoreException{
         List<QuickOpenerProperty> list = new ArrayList<> ();
-        for(String key:NbPreferences.forModule(QuickOpenerPanel.class).keys()){
+        for(String key : prefs.keys()){
             if(key.startsWith(prefix)){
-                String desc =key.replace(prefix, "");
-                desc =desc.replaceAll("_", " ");
-                String val=NbPreferences.forModule(QuickOpenerPanel.class).get(key, "");
-                list.add(new QuickOpenerProperty(desc,val));                
+                String description = unescape(key.substring(prefix.length()));
+                list.add(load(prefix, description, ""));
             }
         }
         return list;
     }
-    
-    
-    
+
+    private static String escape(String s) {
+        return s.replaceAll(" ", "_");
+    }
+
+    private static String unescape(String s) {
+        return s.replaceAll("_", " ");
+    }
+
+    private static String key(QuickOpenerProperty property) {
+        return key(property.getPrefix(), property.getDescription());
+    }
+
+    private static String key(String prefix, String description) {
+        return (prefix != null ? prefix : "") + escape(description);
+    }
 }

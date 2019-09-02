@@ -6,6 +6,7 @@ import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.util.prefs.BackingStoreException;
 import me.dsnet.quickopener.PathFinder;
 import me.dsnet.quickopener.QuickMessages;
 import me.dsnet.quickopener.prefs.PrefsUtil;
@@ -57,11 +58,14 @@ public final class Path extends AbstractFileContextAwareAction implements Action
             return;
         }
         String ossep = getOSSeparator();
-        QuickOpenerProperty prop = PrefsUtil.load(null, "generalseparator", ossep);
-        if (!prop.getValue().equals(ossep)) {
-            String torep = (ossep.equals("\\")) ? "\\\\" : ossep;
-            String repl = (prop.getValue().equals("\\")) ? "\\\\" : prop.getValue();
-            path = path.replaceAll(torep, repl);
+        try {
+            QuickOpenerProperty prop = PrefsUtil.load(null, "generalseparator", ossep);
+            if (!prop.getValue().equals(ossep)) {
+                String torep = (ossep.equals("\\")) ? "\\\\" : ossep;
+                String repl = (prop.getValue().equals("\\")) ? "\\\\" : prop.getValue();
+                path = path.replaceAll(torep, repl);
+            }
+        } catch (BackingStoreException ex) {
         }
         try {
             Toolkit toolkit = Toolkit.getDefaultToolkit();
