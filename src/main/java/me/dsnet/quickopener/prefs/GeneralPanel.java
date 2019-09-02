@@ -305,7 +305,6 @@ public class GeneralPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_applyCShellButtonActionPerformed
 
     private void applyConfirmationButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_applyConfirmationButtonActionPerformed
-        PrefsUtil.store("confirmationDialogue", Boolean.toString(confirmationCheckBox.isSelected()));
     }//GEN-LAST:event_applyConfirmationButtonActionPerformed
 
     private void resetButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetButtonActionPerformed
