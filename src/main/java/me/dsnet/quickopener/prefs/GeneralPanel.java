@@ -4,6 +4,11 @@
  */
 package me.dsnet.quickopener.prefs;
 
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import javax.swing.*;
 import me.dsnet.quickopener.QuickMessages;
 import me.dsnet.quickopener.prefs.filemanager.IFileManagerConfigurator;
 import me.dsnet.quickopener.prefs.filemanager.impl.CajaFileManagerConfigurator;
@@ -15,12 +20,6 @@ import org.openide.DialogDescriptor;
 import org.openide.DialogDisplayer;
 import org.openide.NotifyDescriptor;
 import org.openide.util.NbBundle;
-
-import javax.swing.*;
-import java.awt.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 /**
  *
@@ -302,6 +301,7 @@ public class GeneralPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_applyCShellButtonActionPerformed
 
     private void applyConfirmationButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_applyConfirmationButtonActionPerformed
+        PrefsUtil.store("confirmationDialogue", Boolean.toString(confirmationCheckBox.isSelected()));
     }//GEN-LAST:event_applyConfirmationButtonActionPerformed
 
     private void resetButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetButtonActionPerformed
@@ -310,7 +310,7 @@ public class GeneralPanel extends javax.swing.JPanel {
         cshellTextField.setText("not defined");
 
         confirmationCheckBox.setSelected(false);
-        PrefsUtil.store("confirmationDialogue", (confirmationCheckBox.isSelected()) ? "true" : "false");
+        PrefsUtil.store("confirmationDialogue", Boolean.toString(confirmationCheckBox.isSelected()));
 
         PrefsUtil.removeSingleProperty("generalseparator");
         jLabel2.setText(getOSSeparator());
