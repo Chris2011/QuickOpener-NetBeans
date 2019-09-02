@@ -5,10 +5,10 @@
 package me.dsnet.quickopener.prefs;
 
 import com.sessonad.oscommands.commands.Commands;
-import me.dsnet.quickopener.QuickMessages;
-import me.dsnet.quickopener.actions.popup.PropertyTableModel;
 import java.util.prefs.BackingStoreException;
 import javax.swing.JTable;
+import me.dsnet.quickopener.QuickMessages;
+import me.dsnet.quickopener.actions.popup.PropertyTableModel;
 import org.openide.DialogDisplayer;
 import org.openide.NotifyDescriptor;
 import org.openide.util.HelpCtx;
@@ -20,6 +20,7 @@ import org.openide.util.HelpCtx;
 public class CommandsPanel extends javax.swing.JPanel {
 
     private final String cmdos = Commands.getPlatform().getOperatingSystem().getShellPrefix();
+    private final PropertyTableModel tableModel = new PropertyTableModel("command");
 
     /**
      * Creates new form CommandsPanel
@@ -27,13 +28,23 @@ public class CommandsPanel extends javax.swing.JPanel {
     public CommandsPanel() {
         super();
         initComponents();
-        jTable2.setModel(new PropertyTableModel("command"));
+        tableModel.reload();
+        jTable2.setModel(tableModel);
         jTable2.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
         jTable2.getColumnModel().getColumn(0).setPreferredWidth(150);
         jTable2.getColumnModel().getColumn(0).setMaxWidth(400);
         jTable2.getColumnModel().getColumn(0).setMinWidth(100);
         jLabel5.setText("(for your OS is: \'" + cmdos + "\')");
 
+    }
+
+    private QuickOpenerCommand getSelectedCommand() {
+        int thisrow = jTable2.getSelectedRow();
+        if (-1 != thisrow) {
+            final int row = jTable2.getRowSorter().convertRowIndexToModel(thisrow);
+            return (QuickOpenerCommand)tableModel.getProperty(row);
+        }
+        return null;
     }
 
     /**
@@ -52,11 +63,12 @@ public class CommandsPanel extends javax.swing.JPanel {
         jButton1 = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
-        jCheckBox1 = new javax.swing.JCheckBox();
+        chkAddPrefix = new javax.swing.JCheckBox();
         jLabel5 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
         btnPlaceholders = new javax.swing.JButton();
+        chkSkipConfirmation = new javax.swing.JCheckBox();
 
         jLabel1.setLabelFor(cmddescription);
         org.openide.awt.Mnemonics.setLocalizedText(jLabel1, org.openide.util.NbBundle.getMessage(CommandsPanel.class, "CommandsPanel.jLabel1.text")); // NOI18N
@@ -85,11 +97,11 @@ public class CommandsPanel extends javax.swing.JPanel {
             }
         });
 
-        org.openide.awt.Mnemonics.setLocalizedText(jCheckBox1, org.openide.util.NbBundle.getMessage(CommandsPanel.class, "CommandsPanel.jCheckBox1.text")); // NOI18N
-        jCheckBox1.setFocusPainted(false);
-        jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
+        org.openide.awt.Mnemonics.setLocalizedText(chkAddPrefix, org.openide.util.NbBundle.getMessage(CommandsPanel.class, "CommandsPanel.chkAddPrefix.text")); // NOI18N
+        chkAddPrefix.setFocusPainted(false);
+        chkAddPrefix.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox1ActionPerformed(evt);
+                chkAddPrefixActionPerformed(evt);
             }
         });
 
@@ -125,6 +137,13 @@ public class CommandsPanel extends javax.swing.JPanel {
             }
         });
 
+        org.openide.awt.Mnemonics.setLocalizedText(chkSkipConfirmation, org.openide.util.NbBundle.getMessage(CommandsPanel.class, "CommandsPanel.chkSkipConfirmation.text")); // NOI18N
+        chkSkipConfirmation.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkSkipConfirmationActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -139,11 +158,6 @@ public class CommandsPanel extends javax.swing.JPanel {
                             .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(74, 74, 74)
-                        .addComponent(jCheckBox1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cmdvalue, javax.swing.GroupLayout.DEFAULT_SIZE, 98, Short.MAX_VALUE)
@@ -152,7 +166,17 @@ public class CommandsPanel extends javax.swing.JPanel {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cmddescription)))
+                        .addComponent(cmddescription))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(74, 74, 74)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(chkSkipConfirmation)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(chkAddPrefix)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE)))))
                 .addContainerGap())
         );
 
@@ -172,16 +196,18 @@ public class CommandsPanel extends javax.swing.JPanel {
                     .addComponent(btnPlaceholders))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jCheckBox1)
+                    .addComponent(chkAddPrefix)
                     .addComponent(jLabel5))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(chkSkipConfirmation)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jButton1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton2)
-                        .addContainerGap(78, Short.MAX_VALUE))))
+                        .addGap(0, 162, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -194,7 +220,7 @@ public class CommandsPanel extends javax.swing.JPanel {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 252, Short.MAX_VALUE)
+            .addGap(0, 323, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -209,25 +235,29 @@ public class CommandsPanel extends javax.swing.JPanel {
             DialogDisplayer.getDefault().notify(d);
             return;
         }
-        PrefsUtil.store("command" + description, value);
-        jTable2.setModel(new PropertyTableModel("command"));
+        QuickOpenerCommand command = new QuickOpenerCommand(description, value);
+        command.setSkipConfirmation(this.chkSkipConfirmation.isSelected());
+        try {
+            PrefsUtil.store(command);
+        } catch (BackingStoreException e) {
+        }
+        tableModel.reload();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         try {
             PrefsUtil.remove("command" + cmddescription.getText().replaceAll(" ", "_"));
-            jTable2.setModel(new PropertyTableModel("command"));
+            tableModel.reload();
         } catch (BackingStoreException ex) {
             // Exceptions.printStackTrace(ex);
         }
-
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
+    private void chkAddPrefixActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkAddPrefixActionPerformed
         if (cmdos == null) {
             return;
         }
-        boolean value = jCheckBox1.isSelected();
+        boolean value = chkAddPrefix.isSelected();
         String text = cmdvalue.getText();
         if (value && text != null && !text.startsWith(cmdos)) {
             text = cmdos + text;
@@ -235,17 +265,15 @@ public class CommandsPanel extends javax.swing.JPanel {
             text = text.replaceAll(cmdos, "");
         }
         cmdvalue.setText(text);
-    }//GEN-LAST:event_jCheckBox1ActionPerformed
+    }//GEN-LAST:event_chkAddPrefixActionPerformed
 
     private void jTable2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable2MouseClicked
         if (evt.getClickCount() == 1) {
-            final int thisrow = jTable2.getSelectedRow();
-            if (-1 != thisrow) {
-                final int row = jTable2.getRowSorter().convertRowIndexToModel(thisrow);
-                String description = (String) jTable2.getModel().getValueAt(row, 0);
-                String command = (String) jTable2.getModel().getValueAt(row, 1);
-                cmddescription.setText(description);
-                cmdvalue.setText(command);
+            QuickOpenerCommand command = getSelectedCommand();
+            if (command != null) {
+                cmddescription.setText(command.getDescription());
+                cmdvalue.setText(command.getValue());
+                chkSkipConfirmation.setSelected(command.isSkipConfirmation());
             }
         }
     }//GEN-LAST:event_jTable2MouseClicked
@@ -254,13 +282,18 @@ public class CommandsPanel extends javax.swing.JPanel {
         new HelpCtx("me.dsnet.quickopener.placeholders").display();
     }//GEN-LAST:event_btnPlaceholdersActionPerformed
 
+    private void chkSkipConfirmationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkSkipConfirmationActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_chkSkipConfirmationActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnPlaceholders;
+    private javax.swing.JCheckBox chkAddPrefix;
+    private javax.swing.JCheckBox chkSkipConfirmation;
     private javax.swing.JTextField cmddescription;
     private javax.swing.JTextField cmdvalue;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;

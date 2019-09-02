@@ -4,6 +4,12 @@
  */
 package me.dsnet.quickopener.prefs;
 
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.prefs.BackingStoreException;
+import javax.swing.*;
 import me.dsnet.quickopener.QuickMessages;
 import me.dsnet.quickopener.prefs.filemanager.IFileManagerConfigurator;
 import me.dsnet.quickopener.prefs.filemanager.impl.CajaFileManagerConfigurator;
@@ -16,12 +22,6 @@ import org.openide.DialogDisplayer;
 import org.openide.NotifyDescriptor;
 import org.openide.util.NbBundle;
 
-import javax.swing.*;
-import java.awt.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 /**
  *
  * @author SessonaD
@@ -33,15 +33,18 @@ public class GeneralPanel extends javax.swing.JPanel {
      */
     public GeneralPanel() {
         initComponents();
-        QuickOpenerProperty customSeparator=PrefsUtil.load(null,"generalseparator",getOSSeparator());
-        jLabel2.setText(customSeparator.getValue());
-        QuickOpenerProperty customShell=PrefsUtil.load(null,"customShell",null);
-        cShellLabel.setText((customShell.getValue()==null)?"not defined":customShell.getValue());
-        QuickOpenerProperty customFileManager=PrefsUtil.load(null,"customFileManager",null);
-        cFileManagerLabel.setText(customFileManager.getValue()==null ? "not defined" : customFileManager.getValue());
-        QuickOpenerProperty confirmation=PrefsUtil.load(null,"confirmationDialogue","true");
-        boolean isConfirmSelected = Boolean.parseBoolean(confirmation.getValue());
-        confirmationCheckBox.setSelected(isConfirmSelected);
+        try {
+            QuickOpenerProperty customSeparator=PrefsUtil.load(null,"generalseparator",getOSSeparator());
+            jLabel2.setText(customSeparator.getValue());
+            QuickOpenerProperty customShell=PrefsUtil.load(null,"customShell",null);
+            cShellLabel.setText((customShell.getValue()==null)?"not defined":customShell.getValue());
+            QuickOpenerProperty customFileManager=PrefsUtil.load(null,"customFileManager",null);
+            cFileManagerLabel.setText(customFileManager.getValue()==null ? "not defined" : customFileManager.getValue());
+            QuickOpenerProperty confirmation=PrefsUtil.load(null,"confirmationDialogue","true");
+            boolean isConfirmSelected = Boolean.parseBoolean(confirmation.getValue());
+            confirmationCheckBox.setSelected(isConfirmSelected);
+        } catch (BackingStoreException ex) {
+        }
 
         shellConfigureButton.setEnabled(!getAvailableConfigurators().isEmpty());
         fileManagerConfigureButton.setEnabled(!getAvailableFileManagerConfigurators().isEmpty());
@@ -302,17 +305,24 @@ public class GeneralPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_applyCShellButtonActionPerformed
 
     private void applyConfirmationButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_applyConfirmationButtonActionPerformed
+        PrefsUtil.store("confirmationDialogue", Boolean.toString(confirmationCheckBox.isSelected()));
     }//GEN-LAST:event_applyConfirmationButtonActionPerformed
 
     private void resetButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetButtonActionPerformed
-        PrefsUtil.removeSingleProperty("customShell");
+        try {
+            PrefsUtil.remove("customShell");
+        } catch (BackingStoreException ex) {
+        }
         cShellLabel.setText("not defined");
         cshellTextField.setText("not defined");
 
         confirmationCheckBox.setSelected(false);
         PrefsUtil.store("confirmationDialogue", (confirmationCheckBox.isSelected()) ? "true" : "false");
 
-        PrefsUtil.removeSingleProperty("generalseparator");
+        try {
+            PrefsUtil.remove("generalseparator");
+        } catch (BackingStoreException ex) {
+        }
         jLabel2.setText(getOSSeparator());
         jTextField1.setText("");
 

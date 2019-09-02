@@ -6,14 +6,16 @@ package me.dsnet.quickopener.actions;
 
 import java.io.File;
 import java.io.IOException;
-import me.dsnet.quickopener.PathFinder;
-import me.dsnet.quickopener.QuickMessages;
-import me.dsnet.quickopener.prefs.PrefsUtil;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.prefs.BackingStoreException;
 import javax.swing.JEditorPane;
 import javax.swing.text.JTextComponent;
 import javax.swing.text.StyledDocument;
+import me.dsnet.quickopener.PathFinder;
+import me.dsnet.quickopener.QuickMessages;
+import me.dsnet.quickopener.prefs.PrefsUtil;
+import me.dsnet.quickopener.prefs.QuickOpenerCommand;
 import org.openide.DialogDisplayer;
 import org.openide.NotifyDescriptor;
 import org.openide.cookies.EditorCookie;
@@ -32,9 +34,9 @@ public class RunCommand {
     private static boolean isNotBlank(String f) {
         return f != null && !f.isEmpty();
     }
-    private final String _command;
+    private final QuickOpenerCommand _command;
 
-    public RunCommand(String command) {
+    public RunCommand(QuickOpenerCommand command) {
         this._command = command;
     }
 
@@ -45,7 +47,7 @@ public class RunCommand {
             return false;
         } else {
             final Map<String, String> createPlaceholders = createPlaceholders();
-            String command = fillPlaceholders(_command, createPlaceholders);
+            String command = fillPlaceholders(_command.getValue(), createPlaceholders);
             //Are all placeholders replaced? -> if not then show a message!
             boolean foundUnreplacedPlaceholder = false;
             for (String placeholder : createPlaceholders.keySet()) {
@@ -62,9 +64,14 @@ public class RunCommand {
             }
             try {
                 String msg = QuickMessages.CONFIRM_COMMAND_PREFIX + command + QuickMessages.CONFIRM_COMMAND_SUFFIX;
-                boolean nedToConfirm = Boolean.parseBoolean((PrefsUtil.load(null, "confirmationDialogue", "true")).getValue());
+                boolean confirmEnabled = true;
+                try {
+                    confirmEnabled = Boolean.parseBoolean(PrefsUtil.load(null, "confirmationDialogue", "true").getValue());
+                } catch (BackingStoreException ex) {
+                }
+                boolean needToConfirm = confirmEnabled && !_command.isSkipConfirmation();
                 NotifyDescriptor d = new NotifyDescriptor.Confirmation(msg, "Confirm", NotifyDescriptor.OK_CANCEL_OPTION);
-                if (!nedToConfirm || (nedToConfirm && NotifyDescriptor.OK_OPTION == DialogDisplayer.getDefault().notify(d))) {
+                if (!needToConfirm || (needToConfirm && NotifyDescriptor.OK_OPTION == DialogDisplayer.getDefault().notify(d))) {
                     Runtime.getRuntime().exec(command);
                     return true;
                 } else {
@@ -149,7 +156,7 @@ public class RunCommand {
 
     public String getCommandWithReplacedPlaceholders() {
         final Map<String, String> placeholders = createPlaceholders();
-        return fillPlaceholders(_command, placeholders);
+        return fillPlaceholders(_command.getValue(), placeholders);
     }
 
     private JTextComponent getCurrentEditor() {
