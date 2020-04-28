@@ -11,9 +11,11 @@ import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import me.dsnet.quickopener.actions.RunCommand;
+import me.dsnet.quickopener.prefs.QuickOpenerCommand;
 import org.netbeans.api.options.OptionsDisplayer;
 import org.openide.util.ImageUtilities;
 import org.openide.util.NbBundle;
+
 
 /**
  *
@@ -23,6 +25,7 @@ import org.openide.util.NbBundle;
 public class DialogCustomCommandRun extends javax.swing.JDialog {
 
     public static final int CHARSNUMBER = 80;
+    private static final PropertyTableModel tableModel = new PropertyTableModel("command");
 
     /**
      * Creates new form DialogCustomCommand
@@ -31,6 +34,7 @@ public class DialogCustomCommandRun extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         reinitModel();
+        jTable2.setModel(tableModel);
         jTable2.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
         jTable2.getColumnModel().getColumn(0).setPreferredWidth(150);
         jTable2.getColumnModel().getColumn(0).setMaxWidth(400);
@@ -69,7 +73,7 @@ public class DialogCustomCommandRun extends javax.swing.JDialog {
     }
 
     private void executeSelectedCommand() {
-        String selectedCommand = getSelectedCommand();
+        QuickOpenerCommand selectedCommand = getSelectedCommand();
         if (null != selectedCommand) {
             boolean ok = new RunCommand(selectedCommand).actionPerformed();
             if (ok) {
@@ -79,7 +83,7 @@ public class DialogCustomCommandRun extends javax.swing.JDialog {
     }
 
     private void updatePreview() {
-        String command = getSelectedCommand();
+        QuickOpenerCommand command = getSelectedCommand();
         if (null != command) {
             lblPreviewCommand.setText(Bundle.CTL_DialogCustomCommandRunPreview() + new RunCommand(command).getCommandWithReplacedPlaceholders());
         } else {
@@ -221,12 +225,11 @@ public class DialogCustomCommandRun extends javax.swing.JDialog {
         doClose();
     }//GEN-LAST:event_closeDialog
 
-    public String getSelectedCommand() {
+    public QuickOpenerCommand getSelectedCommand() {
         final int thisrow = jTable2.getSelectedRow();
         if (-1 != thisrow) {
             final int row = jTable2.getRowSorter().convertRowIndexToModel(thisrow);
-            String command = (String) jTable2.getModel().getValueAt(row, 1);
-            return command;
+            return (QuickOpenerCommand) tableModel.getProperty(row);
         }
         return null;
 
@@ -304,10 +307,10 @@ public class DialogCustomCommandRun extends javax.swing.JDialog {
     // End of variables declaration//GEN-END:variables
 
     private void reinitModel() {
-        jTable2.setModel(new PropertyTableModel("command"));
+        tableModel.reload();
 
         //select first command if available
-        if (jTable2.getModel().getRowCount() >= 1) {
+        if (tableModel.getRowCount() >= 1) {
             jTable2.changeSelection(0, 0, false, false);
         }
     }

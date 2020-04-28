@@ -4,11 +4,12 @@
  */
 package me.dsnet.quickopener.actions.popup;
 
-import me.dsnet.quickopener.prefs.PrefsUtil;
-import me.dsnet.quickopener.prefs.QuickOpenerProperty;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.prefs.BackingStoreException;
 import javax.swing.table.AbstractTableModel;
+import me.dsnet.quickopener.prefs.PrefsUtil;
+import me.dsnet.quickopener.prefs.QuickOpenerProperty;
 
 /**
  *
@@ -16,26 +17,17 @@ import javax.swing.table.AbstractTableModel;
  */
 public class PropertyTableModel extends AbstractTableModel {
 
-    String[] columnNames = {"Name", "Path"};
-    Object[][] data = null;
+    private String[] columnNames = {"Name", "Path"};
+    private final String prefix;
+    private final List<QuickOpenerProperty> data = new ArrayList<>();
 
     public PropertyTableModel(String prefix) {
-        setColumnNames(prefix);
-        try {
-            List<QuickOpenerProperty> prefs = PrefsUtil.getAllMatching(prefix);
-            this.data = new Object[prefs.size()][2];
-            for (int i = 0; i < prefs.size(); i++) {
-                QuickOpenerProperty pref = prefs.get(i);
-                String desc = pref.getDescription();
-                String val = pref.getValue();
-                this.data[i] = new String[]{desc, val};
-            }
-        } catch (BackingStoreException ex) {
-            //Exceptions.printStackTrace(ex);
-        }
+        this.prefix = prefix;
+        setColumnNames();
+        reload();
     }
 
-    private void setColumnNames(String prefix) {
+    private void setColumnNames() {
         if (prefix.equals("command")) {
             columnNames = new String[]{"Name", "Command"};
         } else {
@@ -50,7 +42,7 @@ public class PropertyTableModel extends AbstractTableModel {
 
     @Override
     public int getRowCount() {
-        return data.length;
+        return data.size();
     }
 
     @Override
@@ -60,12 +52,34 @@ public class PropertyTableModel extends AbstractTableModel {
 
     @Override
     public Object getValueAt(int row, int col) {
-        return data[row][col];
+        QuickOpenerProperty property = data.get(row);
+        switch (col) {
+            case 0:
+                return property.getDescription();
+            case 1:
+                return property.getValue();
+            default:
+                throw new IllegalArgumentException();
+        }
     }
 
     @Override
     public Class getColumnClass(int c) {
         return String.class;
+    }
+
+    public void reload() {
+        data.clear();
+        try {
+            data.addAll(PrefsUtil.getAllMatching(prefix));
+        } catch (BackingStoreException ex) {
+            //Exceptions.printStackTrace(ex);
+        }
+        fireTableDataChanged();
+    }
+
+    public QuickOpenerProperty getProperty(int row) {
+        return data.get(row);
     }
 
 }
