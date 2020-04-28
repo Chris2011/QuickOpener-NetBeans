@@ -305,6 +305,7 @@ public class GeneralPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_applyCShellButtonActionPerformed
 
     private void applyConfirmationButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_applyConfirmationButtonActionPerformed
+        PrefsUtil.store("confirmationDialogue", Boolean.toString(confirmationCheckBox.isSelected()));
     }//GEN-LAST:event_applyConfirmationButtonActionPerformed
 
     private void resetButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetButtonActionPerformed
@@ -316,7 +317,7 @@ public class GeneralPanel extends javax.swing.JPanel {
         cshellTextField.setText("not defined");
 
         confirmationCheckBox.setSelected(false);
-        PrefsUtil.store("confirmationDialogue", (confirmationCheckBox.isSelected()) ? "true" : "false");
+        PrefsUtil.store("confirmationDialogue", Boolean.toString(confirmationCheckBox.isSelected()));
 
         try {
             PrefsUtil.remove("generalseparator");
